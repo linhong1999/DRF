@@ -13,4 +13,7 @@ urlpatterns = [
     path('login/',obtain_jwt_token),              # 只提供了 post 方法
     path('user_detail/',JWTTest.UserDetail.as_view()),              # 只提供了 post 方法
     # path('login/',JWTTest.JWTTestToken.as_view()),
+
+    path('loginv2/', views.LoginAPIView.as_view()),  # 只提供了 post 方法
+
 ]

@@ -61,3 +61,8 @@ class UserDeserializer(serializers.Serializer):
 
 
     # icon = serializers.SerializerMethodField()
+
+class CarModelSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Car
+        fields = ['name', 'price', 'brand']

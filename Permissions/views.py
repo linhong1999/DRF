@@ -58,3 +58,25 @@ class TestThrottles(APIView):  # 只有登录之后才能访问
         return Response({
             'msg': 'post 获取 ok',
         })
+
+
+# 先禁用认证与权限
+# 拿到前台登录信息
+# 校验得到登录用户
+# 签发token并返回
+from . import serializers
+class LoginAPIView(APIView):
+    authentication_classes = []
+    permission_classes = []
+
+    def post(self, req, *args, **kwargs):
+
+        user_ser = serializers.UserModelSerializers(data=req.data)
+        user_ser.is_valid(raise_exception=True)
+        return Response({
+            'msg': '登录成功',
+            'result': {
+                'token': user_ser.token,
+                'user': serializers.UserModelSerializers(user_ser.user).data,
+            }
+        })

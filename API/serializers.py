@@ -17,7 +17,7 @@ class BookModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Book
         # 前台返回的字段
-        fields = ('name', 'price', 'publish_name', 'publish','author_list')
+        fields = ('name', 'price', 'publish_name', 'publish', 'author_list')
         # depth = 1
         '''
         fields = '__all__' # 前台返回字段 元组

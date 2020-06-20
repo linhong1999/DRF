@@ -141,11 +141,11 @@ REST_FRAMEWORK = {
         'rest_framework.parsers.MultiPartParser',  # 这个才是form
     ],
     # 配置全局 异常处理 自定义
-    'EXCEPTION_HANDLER': 'CBVTest.exception.exception_handler',
+    # 'EXCEPTION_HANDLER': 'CBVTest.exception.exception_handler',
     'DEFAULT_AUTHENTICATION_CLASSES': [  # 认证类配置
         # 'rest_framework.authentication.SessionAuthentication',
         # 'rest_framework.authentication.BaseAuthentication',
-        'Permissions.authentications.MyAuthentication',
+        # 'Permissions.authentications.MyAuthentication',
     ],
     'DEFAULT_PERMISSION_CLASSES': [  # 权限类配置
         'rest_framework.permissions.AllowAny',
@@ -157,6 +157,21 @@ REST_FRAMEWORK = {
         'anon': None,
         'sms': '3/min'
     }
+}
+
+# 自定义 drf-jwt 配置
+import datetime
+JWT_AUTH = {
+    'JWT_ENCODE_HANDLER':
+        'rest_framework_jwt.utils.jwt_encode_handler',
+
+    'JWT_DECODE_HANDLER':
+        'rest_framework_jwt.utils.jwt_decode_handler',
+
+    'JWT_PAYLOAD_HANDLER':
+        'rest_framework_jwt.utils.jwt_payload_handler',
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(days=1),  # token 过期时间
+
 }
 
 # 配置自定义 User 表

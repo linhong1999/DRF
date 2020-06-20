@@ -1,6 +1,6 @@
 from django.conf.urls import url
 from django.urls import path, re_path
-from .CBV import Book,User
+from .CBV import Book, User, CarListAPIView
 
 urlpatterns = [
     path('book/',Book.as_view()),
@@ -8,5 +8,7 @@ urlpatterns = [
 
     path('user/', User.as_view()),
     re_path(r'user/(?P<pk>.*)/$', User.as_view()),
+
+    path('cars/', CarListAPIView.as_view()),
 
 ]

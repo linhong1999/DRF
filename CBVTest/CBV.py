@@ -11,9 +11,8 @@
 #         print('----post----',req.POST)
 #         return HttpResponse('i am post')
 from . import models
-from .serializers import UserSerializer,UserDeserializer
-from rest_framework.views import APIView
-from rest_framework.views import Response
+from .serializers import UserSerializer,UserDeserializer,CarModelSerializer
+from rest_framework.views import APIView ,Response
 class Book(APIView):
     def get(self,req,*args,**kwargs):
 
@@ -84,5 +83,22 @@ class User(APIView):
             'msg': msg,
             'result': result,
         })
+
+from rest_framework.generics import ListAPIView
+from rest_framework.filters import SearchFilter, OrderingFilter
+from .paginations import MyPageNumberPagination, MyLimitOffsetPagination
+class CarListAPIView(ListAPIView):
+    queryset = models.Car.objects.all()
+    serializer_class = CarModelSerializer
+
+    # 局部配置过滤类 (全局配置 DEFAULT_FILTER_BACKENDS)
+    filter_backends = [SearchFilter, OrderingFilter]
+    # SearchFilter过滤类依赖的过滤条件 ： 接口： /cars/?search=...
+    search_fields = ['name', 'brand']  # 多个字段，多个模糊查询
+    ordering_fields = ['price', 'pk']
+    # 127.0.0.1:8000/v1/cars/?search=1&ordering=-price&ordering=pk 多个排序条件
+    # 127.0.0.1:8000/v1/cars/?search=1&ordering=-price,pk 也可
+
+    pagination_class = MyLimitOffsetPagination
 
 
